@@ -45,7 +45,7 @@ pub struct HashRecord {
 
 #[derive(Accounts)]
 pub struct StoreHashAndBlock<'info> {
-    #[account(mut, seeds = [user.key.as_ref(), b"hash_record"], bump)]
+    #[account(init_if_needed, payer = user, space = 8 + 32 + 8, seeds = [user.key.as_ref(), b"hash_record"], bump)]
     pub hash_record: Account<'info, HashRecord>,
     #[account(mut)]
     pub user: Signer<'info>,
